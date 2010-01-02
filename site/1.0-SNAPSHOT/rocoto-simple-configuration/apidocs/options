@@ -1,0 +1,22 @@
+-classpath
+'/Users/simone/Documents/workspace-private/rocoto-parent/simple-configuration/target/classes:/Users/simone/.m2/repository/aopalliance/aopalliance/1.0/aopalliance-1.0.jar:/Users/simone/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar:/Users/simone/.m2/repository/com/google/inject/guice/2.0/guice-2.0.jar:/Users/simone/.m2/repository/org/projectlombok/lombok/0.9.1/lombok-0.9.1.jar'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'/Users/simone/Documents/workspace-private/rocoto-parent/simple-configuration/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2010. All Rights Reserved.'
+-charset
+'UTF-8'
+-d
+'/Users/simone/Documents/workspace-private/rocoto-parent/simple-configuration/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'Simple Configuration Properties 1.0-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'Simple Configuration Properties 1.0-SNAPSHOT API'
