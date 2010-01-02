@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.rocoto</groupId>
+  <artifactId>rocoto-simple-configuration</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <versioning>
+    <versions>
+      <version>1.0-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20100102195113</lastUpdated>
+  </versioning>
+</metadata>
