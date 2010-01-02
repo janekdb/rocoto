@@ -1,0 +1,344 @@
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Rocoto - Home</title>
+    <link rel="stylesheet" href="./css/maven-theme.css" type="text/css" />
+    <link rel="stylesheet" href="./css/maven-base.css" type="text/css"/>
+    <link rel="stylesheet" href="./css/prettify.css" type="text/css"/>
+    <link rel="stylesheet" href="./css/print.css" type="text/css" media="print" />
+    <script type="text/javascript" src="./js/prettify.js"></script>
+    <script type="text/javascript" src="./js/niftycube.js"></script>
+    <script type="text/javascript">
+        window.onload=function() {
+            Nifty("div\#wrapper", "big");
+            Nifty("div#breadcrumbs", "small");
+            Nifty("div\#navcolumn", "small");
+            Nifty("div.source", "medium");
+            prettyPrint();
+        }
+    </script>
+          <meta name="author" content="Simple Configuration" />
+          </head>
+  <body>
+    <div id="wrapper">
+        <div id="banner">
+                      <a href="http://rocoto.googlecode.com/svn/site/1.0-SNAPSHOT/index.html" id="bannerLeft"  >
+    
+                                            <img src="images/logo.png" alt="Add some spice to Google Guice through configuration files!" />
+    
+            </a>
+                            <div class="clear">
+            <hr/>
+          </div>
+        </div>
+        <div id="breadcrumbs">
+              
+  
+
+  
+    
+            
+  
+    
+            <div class="xleft">
+        <span id="publishDate">Last Published: 2010-01-02</span>
+                  &nbsp;| <span id="projectVersion">Version: 1.0-SNAPSHOT</span>
+                      </div>
+                <div class="xright">      
+  
+
+  
+    
+            
+  
+    
+  </div>
+          <div class="clear">
+            <hr/>
+          </div>
+        </div>
+        <div id="leftColumn">
+          <div id="navcolumn">
+               
+  
+
+  
+    
+            
+  
+    
+                       <h5>Rocoto</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="index.html">Home</a>
+          </li>
+              
+    <li class="none">
+              <strong>Simple Configuration</strong>
+        </li>
+              
+    <li class="none">
+                    <a href="configuration.html">Configuration</a>
+          </li>
+              
+    <li class="none">
+                    <a href="system.html">System</a>
+          </li>
+          </ul>
+              <h5>Project Documentation</h5>
+            <ul>
+              
+                
+                    
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+              
+        <li class="collapsed">
+                    <a href="project-info.html">Project Information</a>
+                </li>
+              
+                
+                    
+                  
+              
+        <li class="collapsed">
+                    <a href="project-reports.html">Project Reports</a>
+                </li>
+          </ul>
+              <h5>Modules</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="rocoto-simple-configuration/index.html">Simple Configuration Properties</a>
+          </li>
+              
+    <li class="none">
+                    <a href="rocoto-configuration/index.html">Apache commons-configuration</a>
+          </li>
+              
+    <li class="none">
+                    <a href="rocoto-system/index.html">System Properties</a>
+          </li>
+          </ul>
+              <h5>External Links</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../ibaguice/">Project Page</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../google-guice/">Google Guice</a>
+          </li>
+          </ul>
+                                               <a href="http://maven.apache.org/" title="Built by Maven" class="poweredBy">
+            <img class="poweredBy"
+                 alt="Built by Maven"
+                 src="./images/logos/maven-feather.png"
+                 width="90"
+                 height="30"
+                 border="1" />
+          </a>
+                           
+  
+
+  
+    
+            
+  
+    
+            </div>
+        </div>
+        <div id="bodyColumn">
+          <div id="contentBox">
+            <div class="section"><h2>The Simple Configuration module</h2>
+<p>Users that want ot use the <i>Simple Configuration</i> module in their ptojects, users have to add in their <tt>pom.xml</tt> the following <tt>dependency</tt>:</p>
+<div class="source"><pre>&lt;dependencies&gt;
+    ...
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.rocoto&lt;/groupId&gt;
+        &lt;artifactId&gt;rocoto-simple-configuration&lt;/artifactId&gt;
+        &lt;version&gt;XX.XX&lt;/version&gt;
+    &lt;/dependency&gt;
+    ...
+&lt;/dependencies&gt;</pre>
+</div>
+<p>Then users are ready to load configuration files, but first create the module; once configured, is it possible to create your injector:</p>
+<div class="source"><pre>import com.google.inject.Guice;
+import com.google.inject.Injector;
+
+import com.rocoto.simpleconfig.SimpleConfigurationModule;
+
+...
+
+SimpleConfigurationModule configurationModule = new SimpleConfigurationModule();
+/*
+ * adds your configuration files
+ */
+Injector injector = Guice.createInjector(configurationModule,
+    ...
+);</pre>
+</div>
+<p>Finally, users can access to configuration parameters throug the <tt>@com.google.inject.name.Named</tt> annotation.</p>
+<div class="section"><h3>Adding properties files from Classpath</h3>
+<p>In many cases developers are used to include their properties file into wars or jars, then reloading them from the classpath.</p>
+<p>The <tt>com.rocoto.simpleconfig.SimpleConfigurationModule</tt> offers a set of methods that simplifies that loading operation, by specifying the full qualified classpath resource name:</p>
+<div class="source"><pre>module.addProperties(&quot;com/acme/jdbc.properties&quot;);
+module.addProperties(&quot;/com/acme/ldap.properties&quot;);</pre>
+</div>
+<p>If needed, users can also specify the <tt>ClassLoader</tt> needed to load the pointed resource(s):</p>
+<div class="source"><pre>ClassLoader myClassLoader = [...];
+...
+module.addProperties(&quot;com/acme/jdbc.properties&quot;, myClassLoader);
+module.addProperties(&quot;/com/acme/ldap.properties&quot;, myClassLoader);</pre>
+</div>
+<p>The <tt>com.rocoto.simpleconfig.SimpleConfigurationModule</tt> also supports the <i>XML</i> definition of properties file:</p>
+<div class="source"><pre>module.addXMLProperties(&quot;com/acme/jdbc.xml&quot;);
+module.addXMLProperties(&quot;/com/acme/ldap.xml&quot;);</pre>
+</div>
+<p>and, of course, also for <i>XML</i> it is possible to specify the <tt>ClassLoader</tt>:</p>
+<div class="source"><pre>ClassLoader myClassLoader = [...];
+...
+module.addXMLProperties(&quot;com/acme/jdbc.xml&quot;, myClassLoader);
+module.addXMLProperties(&quot;/com/acme/ldap.xml&quot;, myClassLoader);</pre>
+</div>
+</div>
+<div class="section"><h3>Adding Properties files from the FileSystem</h3>
+<p>The <tt>com.rocoto.simpleconfig.SimpleConfigurationModule</tt> is able to load typical and <i>XML</i> properties files from the filesystem by specifying the <tt>java.io.File</tt> location:</p>
+<div class="source"><pre>import java.io.File;
+...
+module.addProperties(new File(&quot;etc/com/acme/jdbc.properties&quot;));
+module.addProperties(new File(&quot;etc/com/acme/ldap.xml&quot;));</pre>
+</div>
+<p>By default, using this API, files wich name matches with <i>*.properties</i> pattern will be threated as typical properties files, <i>*.xml</i> instead as <i>XML</i> properties definition.</p>
+<p>If the specified <tt>java.io.File</tt> is a directory, it will be traversed looking for <i>*.properties</i> and <i>*.xml</i> properties files and will be loaded int the configuration; given the following directory:</p>
+<div class="source"><pre>etc
+|-- com
+|   |-- jdbc.properties
+|   |-- rocoto
+|   |   |-- should-be-ignored.txt
+|   |   `-- simpleconfig
+|   |       |-- memcached.xml
+|   |       `-- should-be-ignored.txt
+|   `-- should-be-ignored.txt
+|-- ibatis.properties
+`-- should-be-ignored.txt</pre>
+</div>
+<p>all txt files will be ignored, all others will be load as properties files.</p>
+<p>Users can customize the default behavior of properties files pattern matching, by specifying their <tt>com.rocoto.simpleconfig.AbstractPropertiesFileFilter</tt> implementation, where it is possible specifying the files patterns:</p>
+<div class="source"><pre>import com.rocoto.simpleconfig.AbstractPropertiesFileFilter;
+import java.util.regex.Pattern;
+...
+module.addProperties(new File(&quot;etc&quot;), new AbstractPropertiesFileFilter(
+    Pattern.compile(&quot;.*\\.config&quot;), // specify here the 'old-style' properties file pattern
+    Pattern.compile(&quot;.*\\.pxml&quot;) // specify here the XML properties file pattern
+) {});</pre>
+</div>
+</div>
+<div class="section"><h3>Adding Properties files from URLs</h3>
+<p>The <tt>com.rocoto.simpleconfig.SimpleConfigurationModule</tt> also supports the properties loading from URLs, by specifying the <tt>java.net.URL</tt>:</p>
+<div class="source"><pre>import java.net.URL;
+...
+module.addProperties(new URL(&quot;http://acme.com/config/jdbc.properties&quot;));
+module.addXMLProperties(new URL(&quot;http://acme.com/config/ldap.xml&quot;));</pre>
+</div>
+</div>
+<div class="section"><h3>Adding Java System Properties</h3>
+<p>In many cases users need to acces to Java System Properties by invoking <tt>System.getProperty(&quot;java.version&quot;)</tt> or <tt>System.getProperties()</tt>.</p>
+<p>By enabling them to the configuration module, users can replace the Java System Properties retrieving operation with the Dependency Injection:</p>
+<div class="source"><pre>...
+module.addSystemProperties();</pre>
+</div>
+</div>
+<div class="section"><h3>Adding Environment Variables</h3>
+<p>In Java5 the Environment Variables are accessible through <tt>System.getenv()</tt> and <tt>System.getenv(&quot;JAVA_HOME&quot;)</tt>; like for Java System Properties, users can adding Environment Variables simply by invoking:</p>
+<div class="source"><pre>...
+module.addEnvironmentVariables();</pre>
+</div>
+<p>By default Environment Variables will be referenced into the configuration with the <tt>env.</tt> prefix, but users are free to specify their preferred one:</p>
+<div class="source"><pre>...
+module.addEnvironmentVariables(&quot;environment&quot;);</pre>
+</div>
+</div>
+<div class="section"><h3>Adding existing configurations</h3>
+<p>The <tt>com.rocoto.simpleconfig.SimpleConfigurationModule</tt> allows users to plug already existing properties configuration:</p>
+<div class="source"><pre>Properties p = [...]
+...
+module.addProperties(p);</pre>
+</div>
+<p>or</p>
+<div class="source"><pre>Map\&lt;String, String\&gt; m = [...]
+...
+module.addProperties(m);</pre>
+</div>
+</div>
+<div class="section"><h3>${}, the <i>Apache Ant</i> variables style</h3>
+<p>The <tt>com.rocoto.simpleconfig.SimpleConfigurationModule</tt> supports the well known <i>${}</i> expression to define placeholders, which scope is the whole configuration, that means that users can define some commons properties in one properties file:</p>
+<div class="source"><pre>commons.host=localhost
+commons.port=8080
+...</pre>
+</div>
+<p>then referencing them in different files, loaded in the same configuration:</p>
+<div class="source"><pre>ldap.host=${commons.host}
+ldap.port=${commons.port}
+...</pre>
+</div>
+<p>and</p>
+<div class="source"><pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE properties SYSTEM &quot;http://java.sun.com/dtd/properties.dtd&quot;&gt;
+&lt;properties version=&quot;1.0&quot;&gt;
+    &lt;entry key=&quot;proxy.host&quot;&gt;${commons.host}&lt;/entry&gt;
+    &lt;entry key=&quot;proxy.port&quot;&gt;${commons.port}&lt;/entry&gt;
+    ...
+&lt;/properties&gt;</pre>
+</div>
+</div>
+</div>
+
+          </div>
+        </div>
+        <div class="clear">
+          <hr/>
+        </div>
+        <div id="footer">
+          <div class="xright">Copyright &#169;         
+   
+          2010.
+    
+      All Rights Reserved.    
+  
+
+  
+    
+            
+  
+    
+  </div>
+          <div class="clear">
+            <hr/>
+          </div>
+        </div>
+    </div>
+  </body>
+</html>

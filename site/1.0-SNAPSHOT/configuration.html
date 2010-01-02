@@ -1,0 +1,306 @@
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Rocoto - Home</title>
+    <link rel="stylesheet" href="./css/maven-theme.css" type="text/css" />
+    <link rel="stylesheet" href="./css/maven-base.css" type="text/css"/>
+    <link rel="stylesheet" href="./css/prettify.css" type="text/css"/>
+    <link rel="stylesheet" href="./css/print.css" type="text/css" media="print" />
+    <script type="text/javascript" src="./js/prettify.js"></script>
+    <script type="text/javascript" src="./js/niftycube.js"></script>
+    <script type="text/javascript">
+        window.onload=function() {
+            Nifty("div\#wrapper", "big");
+            Nifty("div#breadcrumbs", "small");
+            Nifty("div\#navcolumn", "small");
+            Nifty("div.source", "medium");
+            prettyPrint();
+        }
+    </script>
+          <meta name="author" content="Configuration" />
+          </head>
+  <body>
+    <div id="wrapper">
+        <div id="banner">
+                      <a href="http://rocoto.googlecode.com/svn/site/1.0-SNAPSHOT/index.html" id="bannerLeft"  >
+    
+                                            <img src="images/logo.png" alt="Add some spice to Google Guice through configuration files!" />
+    
+            </a>
+                            <div class="clear">
+            <hr/>
+          </div>
+        </div>
+        <div id="breadcrumbs">
+              
+  
+
+  
+    
+            
+  
+    
+            <div class="xleft">
+        <span id="publishDate">Last Published: 2010-01-02</span>
+                  &nbsp;| <span id="projectVersion">Version: 1.0-SNAPSHOT</span>
+                      </div>
+                <div class="xright">      
+  
+
+  
+    
+            
+  
+    
+  </div>
+          <div class="clear">
+            <hr/>
+          </div>
+        </div>
+        <div id="leftColumn">
+          <div id="navcolumn">
+               
+  
+
+  
+    
+            
+  
+    
+                       <h5>Rocoto</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="index.html">Home</a>
+          </li>
+              
+    <li class="none">
+                    <a href="simple-configuration.html">Simple Configuration</a>
+          </li>
+              
+    <li class="none">
+              <strong>Configuration</strong>
+        </li>
+              
+    <li class="none">
+                    <a href="system.html">System</a>
+          </li>
+          </ul>
+              <h5>Project Documentation</h5>
+            <ul>
+              
+                
+                    
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+              
+        <li class="collapsed">
+                    <a href="project-info.html">Project Information</a>
+                </li>
+              
+                
+                    
+                  
+              
+        <li class="collapsed">
+                    <a href="project-reports.html">Project Reports</a>
+                </li>
+          </ul>
+              <h5>Modules</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="rocoto-simple-configuration/index.html">Simple Configuration Properties</a>
+          </li>
+              
+    <li class="none">
+                    <a href="rocoto-configuration/index.html">Apache commons-configuration</a>
+          </li>
+              
+    <li class="none">
+                    <a href="rocoto-system/index.html">System Properties</a>
+          </li>
+          </ul>
+              <h5>External Links</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../ibaguice/">Project Page</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../google-guice/">Google Guice</a>
+          </li>
+          </ul>
+                                               <a href="http://maven.apache.org/" title="Built by Maven" class="poweredBy">
+            <img class="poweredBy"
+                 alt="Built by Maven"
+                 src="./images/logos/maven-feather.png"
+                 width="90"
+                 height="30"
+                 border="1" />
+          </a>
+                           
+  
+
+  
+    
+            
+  
+    
+            </div>
+        </div>
+        <div id="bodyColumn">
+          <div id="contentBox">
+            <div class="section"><h2>The Configuration module</h2>
+<p>The <i>Configuration</i> module is an easy-to-use Apache <a class="externalLink" href="http://commons.apache.org/configuration/">commons-configurations</a> wrapper, built for users that require binding more complex configuration format.</p>
+<p>Users that want ot use the <i>Configuration</i> module in their ptojects, users have to add in their <tt>pom.xml</tt> the following <tt>dependency</tt>:</p>
+<div class="source"><pre>&lt;dependencies&gt;
+    ...
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.rocoto&lt;/groupId&gt;
+        &lt;artifactId&gt;rocoto-configuration&lt;/artifactId&gt;
+        &lt;version&gt;XX.XX&lt;/version&gt;
+    &lt;/dependency&gt;
+    ...
+&lt;/dependencies&gt;</pre>
+</div>
+<p>Then users are ready to load configuration files, but first create the module; once configured, is it possible to create your injector:</p>
+<div class="source"><pre>import com.google.inject.Guice;
+import com.google.inject.Injector;
+
+import com.rocoto.configuration.ConfigurationModule;
+
+...
+
+ConfigurationModule configurationModule = new ConfigurationModule();
+/*
+ * adds your configuration files
+ */
+Injector injector = Guice.createInjector(configurationModule,
+    ...
+);</pre>
+</div>
+<p>Finally, users can access to configuration parameters throug the <tt>@com.google.inject.name.Named</tt> annotation.</p>
+<div class="section"><h3>Loading configuration from the XML definition</h3>
+<p>A compact way to load properties into configuration, is using the built int <a class="externalLink" href="http://commons.apache.org/configuration/userguide/howto_configurationfactory.html#Using_a_Configuration_Factory">Configuration Factory</a>, by loading the configuration definition file.</p>
+<p>It is possible doing it in 3 different ways:</p>
+<div class="section"><h4>From a Classpath resource</h4>
+<p>By specifying the full qualified classpath resource name:</p>
+<div class="source"><pre>module.loadFromXMLDefinition(&quot;com/acme/config.xml&quot;);</pre>
+</div>
+<p>If needed, users can also specify the <tt>ClassLoader</tt> needed to load the pointed resource(s):</p>
+<div class="source"><pre>ClassLoader myClassLoader = [...];
+...
+module.loadFromXMLDefinition(&quot;/com/acme/config.xml&quot;, myClassLoader);</pre>
+</div>
+</div>
+<div class="section"><h4>From a File</h4>
+<div class="source"><pre>module.loadFromXMLDefinition(new java.io.File(&quot;etc/com/acme/config.xml&quot;));</pre>
+</div>
+</div>
+<div class="section"><h4>From an URL</h4>
+<div class="source"><pre>module.loadFromXMLDefinition(new java.net.URL(&quot;http://acme.com/config/config.xml&quot;));</pre>
+</div>
+</div>
+</div>
+<div class="section"><h3>Adding configuration</h3>
+<p>Users can easily add existing <tt>org.apache.commons.configuration.Configuration</tt> by invoking the method:</p>
+<div class="source"><pre>import org.apache.commons.configuration.Configuration;
+...
+Configuration conf = [...]
+...
+module.addConfiguration(conf);</pre>
+</div>
+<p>For example, users can add Java System Properties configuration:</p>
+<div class="source"><pre>import org.apache.commons.configuration.Configuration;
+import org.apache.commons.configuration.SystemConfiguration;
+...
+module.addConfiguration(new SystemConfiguration());</pre>
+</div>
+<p>or the provided <tt>com.rocoto.configuration.EnvironmentConfiguration</tt> that loads the Environment Variables:</p>
+<div class="source"><pre>import org.apache.commons.configuration.Configuration;
+import com.rocoto.configuration.EnvironmentConfiguration;
+...
+module.addConfiguration(new EnvironmentConfiguration());</pre>
+</div>
+<p>In this case, Environment Variables will be prefixed with <tt>env.</tt>, but users are free to customize it:</p>
+<div class="source"><pre>import org.apache.commons.configuration.Configuration;
+import com.rocoto.configuration.EnvironmentConfiguration;
+...
+module.addConfiguration(new EnvironmentConfiguration(&quot;environment&quot;));</pre>
+</div>
+</div>
+<div class="section"><h3>Adding File based Configurations</h3>
+<p>Configurations based on textual files are widely supported by <i>Apache commons-configuration</i> by the <a class="externalLink" href="http://commons.apache.org/configuration/apidocs/org/apache/commons/configuration/FileConfiguration.html">org.apache.commons.configuration.FileConfiguration</a> interface; the <tt>com.rocoto.configuration.ConfigurationModule</tt> allows loading them by specifying the type, usually a class that implements the <tt>org.apache.commons.configuration.FileConfiguration</tt> interface, the source and the charset encoding, <i>UTF-8</i> by default.</p>
+<div class="section"><h4>From a Classpath resource</h4>
+<p>By specifying the full qualified classpath resource name:</p>
+<div class="source"><pre>Class&lt;? extends FileConfiguration&gt; configurationType = [...]
+module.loadConfiguration(configurationType, &quot;com/acme/config.xml&quot;);</pre>
+</div>
+<p>If needed, users can also specify the <tt>ClassLoader</tt> needed to load the pointed resource(s):</p>
+<div class="source"><pre>ClassLoader myClassLoader = [...];
+...
+Class&lt;? extends FileConfiguration&gt; configurationType = [...]
+module.loadConfiguration(configurationType, &quot;com/acme/config.xml&quot;, myClassLoader);</pre>
+</div>
+</div>
+<div class="section"><h4>From a File</h4>
+<div class="source"><pre>Class&lt;? extends FileConfiguration&gt; configurationType = [...]
+module.loadConfiguration(configurationType, new java.io.File(&quot;etc/com/acme/config.xml&quot;));</pre>
+</div>
+</div>
+<div class="section"><h4>From an URL</h4>
+<div class="source"><pre>Class&lt;? extends FileConfiguration&gt; configurationType = [...]
+module.loadConfiguration(configurationType, new java.net.URL(&quot;http://acme.com/config/config.xml&quot;));</pre>
+</div>
+</div>
+</div>
+</div>
+
+          </div>
+        </div>
+        <div class="clear">
+          <hr/>
+        </div>
+        <div id="footer">
+          <div class="xright">Copyright &#169;         
+   
+          2010.
+    
+      All Rights Reserved.    
+  
+
+  
+    
+            
+  
+    
+  </div>
+          <div class="clear">
+            <hr/>
+          </div>
+        </div>
+    </div>
+  </body>
+</html>
