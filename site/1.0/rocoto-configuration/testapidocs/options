@@ -1,0 +1,26 @@
+-classpath
+'/Users/simone/Documents/workspace-private/rocoto-parent/configuration/target/classes:/Users/simone/Documents/workspace-private/rocoto-parent/configuration/target/test-classes:/Users/simone/.m2/repository/log4j/log4j/1.2.15/log4j-1.2.15.jar:/Users/simone/.m2/repository/aopalliance/aopalliance/1.0/aopalliance-1.0.jar:/Users/simone/.m2/repository/commons-beanutils/commons-beanutils-core/1.8.2/commons-beanutils-core-1.8.2.jar:/Users/simone/.m2/repository/commons-lang/commons-lang/2.4/commons-lang-2.4.jar:/Users/simone/.m2/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar:/Users/simone/.m2/repository/commons-digester/commons-digester/2.0/commons-digester-2.0.jar:/Users/simone/.m2/repository/com/google/inject/guice/2.0/guice-2.0.jar:/Users/simone/.m2/repository/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar:/Users/simone/.m2/repository/commons-configuration/commons-configuration/1.6/commons-configuration-1.6.jar:/Users/simone/.m2/repository/org/testng/testng/5.8/testng-5.8-jdk15.jar:/Users/simone/.m2/repository/org/projectlombok/lombok/0.9.1/lombok-0.9.1.jar'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'/Users/simone/Documents/workspace-private/rocoto-parent/configuration/src/test/java'
+-author
+-bottom
+'Copyright &#169; 2010. All Rights Reserved.'
+-charset
+'UTF-8'
+-d
+'/Users/simone/Documents/workspace-private/rocoto-parent/configuration/target/site/testapidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'Apache commons-configuration 1.0 Test API'
+-link
+'../apidocs'
+-linkoffline
+'http://code.google.com/p/rocoto/rocoto-simple-configuration/apidocs' '/Users/simone/Documents/workspace-private/rocoto-parent/simple-configuration/target/site/testapidocs'
+-use
+-version
+-windowtitle
+'Apache commons-configuration 1.0 Test API'
