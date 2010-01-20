@@ -1,0 +1,341 @@
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Core - Reactor Dependency Convergence</title>
+    <link rel="stylesheet" href="./css/maven-theme.css" type="text/css" />
+    <link rel="stylesheet" href="./css/maven-base.css" type="text/css"/>
+    <link rel="stylesheet" href="./css/prettify.css" type="text/css"/>
+    <link rel="stylesheet" href="./css/print.css" type="text/css" media="print" />
+    <script type="text/javascript" src="./js/prettify.js"></script>
+    <script type="text/javascript" src="./js/niftycube.js"></script>
+    <script type="text/javascript">
+        window.onload=function() {
+            Nifty("div\#wrapper", "big");
+            Nifty("div#breadcrumbs", "small");
+            Nifty("div\#navcolumn", "small");
+            Nifty("div.source", "medium");
+            prettyPrint();
+        }
+    </script>
+          </head>
+  <body>
+    <div id="wrapper">
+        <div id="banner">
+                      <a href="http://rocoto.googlecode.com/svn/site/2.0/index.html" id="bannerLeft"  >
+    
+                                            <img src="../images/logo.png" alt="Add some spice to Google Guice through configuration files!" />
+    
+            </a>
+                            <div class="clear">
+            <hr/>
+          </div>
+        </div>
+        <div id="breadcrumbs">
+              
+  
+
+  
+    
+            
+  
+    
+            <div class="xleft">
+        <span id="publishDate">Last Published: 2010-01-20</span>
+                  &nbsp;| <span id="projectVersion">Version: 2.0</span>
+                      </div>
+                <div class="xright">      
+  
+
+  
+    
+            
+  
+    
+  </div>
+          <div class="clear">
+            <hr/>
+          </div>
+        </div>
+        <div id="leftColumn">
+          <div id="navcolumn">
+               
+  
+
+  
+    
+            
+  
+    
+                       <h5>Project Documentation</h5>
+            <ul>
+              
+                
+                    
+                  
+                        
+                  
+              
+            <li class="expanded">
+                    <a href="project-info.html">Project Information</a>
+                  <ul>
+                  
+    <li class="none">
+                    <a href="index.html">About</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="dependencies.html">Dependencies</a>
+          </li>
+                  
+    <li class="none">
+              <strong>Dependency Convergence</strong>
+        </li>
+                  
+    <li class="none">
+                    <a href="project-summary.html">Project Summary</a>
+          </li>
+              </ul>
+        </li>
+              
+                
+                    
+                  
+                  
+                  
+                  
+              
+        <li class="collapsed">
+                    <a href="project-reports.html">Project Reports</a>
+                </li>
+          </ul>
+              <h5>External Links</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../">Project Page</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../../google-guice/">Google Guice</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://commons.apache.org/configuration/" class="externalLink">Apache commons-configuration</a>
+          </li>
+          </ul>
+                                               <a href="http://maven.apache.org/" title="Built by Maven" class="poweredBy">
+            <img class="poweredBy"
+                 alt="Built by Maven"
+                 src="./images/logos/maven-feather.png"
+                 width="90"
+                 height="30"
+                 border="1" />
+          </a>
+                           
+  
+
+  
+    
+            
+  
+    
+            </div>
+        </div>
+        <div id="bodyColumn">
+          <div id="contentBox">
+            <div class="section"><h2>Reactor Dependency Convergence</h2>
+<table class="bodyTable"><caption><b>Legend:</b></caption>
+<tr class="a"><td><img alt="success" src="images/icon_success_sml.gif" /></td>
+<td>All projects share one version of the dependency.</td>
+</tr>
+<tr class="b"><td><img alt="error" src="images/icon_error_sml.gif" /></td>
+<td>At least one project has a differing version of the dependency.</td>
+</tr>
+</table>
+<br />
+<table class="bodyTable"><caption><b>Statistics:</b></caption>
+<tr class="a"><th>Number of sub-projects:</th>
+<td>6</td>
+</tr>
+<tr class="b"><th>Number of dependencies (NOD):</th>
+<td>9</td>
+</tr>
+<tr class="a"><th>Number of unique artifacts (NOA):</th>
+<td>9</td>
+</tr>
+<tr class="b"><th>Number of SNAPSHOT artifacts (NOS):</th>
+<td>0</td>
+</tr>
+<tr class="a"><th>Convergence (NOD/NOA):</th>
+<td><img alt="success" src="images/icon_success_sml.gif" />&#160;<b>100%</b></td>
+</tr>
+<tr class="b"><th>Ready for Release (100% Convergence and no SNAPSHOTS):</th>
+<td><img alt="success" src="images/icon_success_sml.gif" />&#160;<b>Success</b></td>
+</tr>
+</table>
+</div>
+<div class="section"><h3>Dependencies used in sub-projects</h3>
+<div class="section"><h4>com.google.code.rocoto:rocoto-core</h4>
+<table class="bodyTable"><tr class="a"><td><img alt="success" src="images/icon_success_sml.gif" /></td>
+<td><table class="bodyTable"><tr class="b"><td width="25%">2.0</td>
+<td><ol type="a"><li><a href="http://code.google.com/p/rocoto/rocoto-configuration" class="externalLink">com.google.code.rocoto:rocoto-configuration</a></li>
+<li><a href="http://code.google.com/p/rocoto/rocoto-converters" class="externalLink">com.google.code.rocoto:rocoto-converters</a></li>
+<li><a href="http://code.google.com/p/rocoto/rocoto-simple-configuration" class="externalLink">com.google.code.rocoto:rocoto-simple-configuration</a></li>
+</ol>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</div>
+<div class="section"><h4>com.google.inject:guice</h4>
+<table class="bodyTable"><tr class="a"><td><img alt="success" src="images/icon_success_sml.gif" /></td>
+<td><table class="bodyTable"><tr class="b"><td width="25%">2.0</td>
+<td><ol type="a"><li><a href="http://code.google.com/p/rocoto/rocoto-configuration" class="externalLink">com.google.code.rocoto:rocoto-configuration</a></li>
+<li><a href="http://code.google.com/p/rocoto/rocoto-converters" class="externalLink">com.google.code.rocoto:rocoto-converters</a></li>
+<li><a href="http://code.google.com/p/rocoto/rocoto-simple-configuration" class="externalLink">com.google.code.rocoto:rocoto-simple-configuration</a></li>
+<li><a href="http://code.google.com/p/rocoto/rocoto-system" class="externalLink">com.google.code.rocoto:rocoto-system</a></li>
+</ol>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</div>
+<div class="section"><h4>commons-beanutils:commons-beanutils-core</h4>
+<table class="bodyTable"><tr class="a"><td><img alt="success" src="images/icon_success_sml.gif" /></td>
+<td><table class="bodyTable"><tr class="b"><td width="25%">1.8.2</td>
+<td><ol type="a"><li><a href="http://code.google.com/p/rocoto/rocoto-configuration" class="externalLink">com.google.code.rocoto:rocoto-configuration</a></li>
+</ol>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</div>
+<div class="section"><h4>commons-configuration:commons-configuration</h4>
+<table class="bodyTable"><tr class="a"><td><img alt="success" src="images/icon_success_sml.gif" /></td>
+<td><table class="bodyTable"><tr class="b"><td width="25%">1.6</td>
+<td><ol type="a"><li><a href="http://code.google.com/p/rocoto/rocoto-configuration" class="externalLink">com.google.code.rocoto:rocoto-configuration</a></li>
+</ol>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</div>
+<div class="section"><h4>commons-digester:commons-digester</h4>
+<table class="bodyTable"><tr class="a"><td><img alt="success" src="images/icon_success_sml.gif" /></td>
+<td><table class="bodyTable"><tr class="b"><td width="25%">2.0</td>
+<td><ol type="a"><li><a href="http://code.google.com/p/rocoto/rocoto-configuration" class="externalLink">com.google.code.rocoto:rocoto-configuration</a></li>
+</ol>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</div>
+<div class="section"><h4>commons-logging:commons-logging</h4>
+<table class="bodyTable"><tr class="a"><td><img alt="success" src="images/icon_success_sml.gif" /></td>
+<td><table class="bodyTable"><tr class="b"><td width="25%">1.1.1</td>
+<td><ol type="a"><li><a href="http://code.google.com/p/rocoto/rocoto-configuration" class="externalLink">com.google.code.rocoto:rocoto-configuration</a></li>
+<li><a href="http://code.google.com/p/rocoto/rocoto-simple-configuration" class="externalLink">com.google.code.rocoto:rocoto-simple-configuration</a></li>
+</ol>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</div>
+<div class="section"><h4>log4j:log4j</h4>
+<table class="bodyTable"><tr class="a"><td><img alt="success" src="images/icon_success_sml.gif" /></td>
+<td><table class="bodyTable"><tr class="b"><td width="25%">1.2.15</td>
+<td><ol type="a"><li><a href="http://code.google.com/p/rocoto/rocoto-configuration" class="externalLink">com.google.code.rocoto:rocoto-configuration</a></li>
+<li><a href="http://code.google.com/p/rocoto/rocoto-simple-configuration" class="externalLink">com.google.code.rocoto:rocoto-simple-configuration</a></li>
+</ol>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</div>
+<div class="section"><h4>org.projectlombok:lombok</h4>
+<table class="bodyTable"><tr class="a"><td><img alt="success" src="images/icon_success_sml.gif" /></td>
+<td><table class="bodyTable"><tr class="b"><td width="25%">0.9.1</td>
+<td><ol type="a"><li><a href="http://code.google.com/p/rocoto/rocoto-configuration" class="externalLink">com.google.code.rocoto:rocoto-configuration</a></li>
+<li><a href="http://code.google.com/p/rocoto/rocoto-converters" class="externalLink">com.google.code.rocoto:rocoto-converters</a></li>
+<li><a href="http://code.google.com/p/rocoto/rocoto-core" class="externalLink">com.google.code.rocoto:rocoto-core</a></li>
+<li><a href="http://code.google.com/p/rocoto" class="externalLink">com.google.code.rocoto:rocoto-parent</a></li>
+<li><a href="http://code.google.com/p/rocoto/rocoto-simple-configuration" class="externalLink">com.google.code.rocoto:rocoto-simple-configuration</a></li>
+<li><a href="http://code.google.com/p/rocoto/rocoto-system" class="externalLink">com.google.code.rocoto:rocoto-system</a></li>
+</ol>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</div>
+<div class="section"><h4>org.testng:testng</h4>
+<table class="bodyTable"><tr class="a"><td><img alt="success" src="images/icon_success_sml.gif" /></td>
+<td><table class="bodyTable"><tr class="b"><td width="25%">5.8</td>
+<td><ol type="a"><li><a href="http://code.google.com/p/rocoto/rocoto-configuration" class="externalLink">com.google.code.rocoto:rocoto-configuration</a></li>
+<li><a href="http://code.google.com/p/rocoto/rocoto-converters" class="externalLink">com.google.code.rocoto:rocoto-converters</a></li>
+<li><a href="http://code.google.com/p/rocoto/rocoto-core" class="externalLink">com.google.code.rocoto:rocoto-core</a></li>
+<li><a href="http://code.google.com/p/rocoto" class="externalLink">com.google.code.rocoto:rocoto-parent</a></li>
+<li><a href="http://code.google.com/p/rocoto/rocoto-simple-configuration" class="externalLink">com.google.code.rocoto:rocoto-simple-configuration</a></li>
+<li><a href="http://code.google.com/p/rocoto/rocoto-system" class="externalLink">com.google.code.rocoto:rocoto-system</a></li>
+</ol>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</div>
+</div>
+
+          </div>
+        </div>
+        <div class="clear">
+          <hr/>
+        </div>
+        <div id="footer">
+          <div class="xright">Copyright &#169;         
+   
+          2010.
+    
+      All Rights Reserved.    
+  
+
+  
+    
+            
+  
+    
+  </div>
+          <div class="clear">
+            <hr/>
+          </div>
+        </div>
+    </div>
+  </body>
+</html>

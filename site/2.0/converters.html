@@ -1,0 +1,370 @@
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Rocoto - Home</title>
+    <link rel="stylesheet" href="./css/maven-theme.css" type="text/css" />
+    <link rel="stylesheet" href="./css/maven-base.css" type="text/css"/>
+    <link rel="stylesheet" href="./css/prettify.css" type="text/css"/>
+    <link rel="stylesheet" href="./css/print.css" type="text/css" media="print" />
+    <script type="text/javascript" src="./js/prettify.js"></script>
+    <script type="text/javascript" src="./js/niftycube.js"></script>
+    <script type="text/javascript">
+        window.onload=function() {
+            Nifty("div\#wrapper", "big");
+            Nifty("div#breadcrumbs", "small");
+            Nifty("div\#navcolumn", "small");
+            Nifty("div.source", "medium");
+            prettyPrint();
+        }
+    </script>
+          <meta name="author" content="Configuration" />
+          </head>
+  <body>
+    <div id="wrapper">
+        <div id="banner">
+                      <a href="http://rocoto.googlecode.com/svn/site/2.0/index.html" id="bannerLeft"  >
+    
+                                            <img src="images/logo.png" alt="Add some spice to Google Guice through configuration files!" />
+    
+            </a>
+                            <div class="clear">
+            <hr/>
+          </div>
+        </div>
+        <div id="breadcrumbs">
+              
+  
+
+  
+    
+            
+  
+    
+            <div class="xleft">
+        <span id="publishDate">Last Published: 2010-01-20</span>
+                  &nbsp;| <span id="projectVersion">Version: 2.0</span>
+                      </div>
+                <div class="xright">      
+  
+
+  
+    
+            
+  
+    
+  </div>
+          <div class="clear">
+            <hr/>
+          </div>
+        </div>
+        <div id="leftColumn">
+          <div id="navcolumn">
+               
+  
+
+  
+    
+            
+  
+    
+                       <h5>Rocoto</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="index.html">Home</a>
+          </li>
+              
+    <li class="none">
+                    <a href="simple-configuration.html">Simple Configuration</a>
+          </li>
+              
+    <li class="none">
+                    <a href="configuration.html">Configuration</a>
+          </li>
+              
+    <li class="none">
+              <strong>Converters</strong>
+        </li>
+              
+    <li class="none">
+                    <a href="system.html">System</a>
+          </li>
+          </ul>
+              <h5>Miscellaneous</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="stats.html">Project stats</a>
+          </li>
+              
+    <li class="none">
+                    <a href="Rocoto-2.0.pdf">PDF Manual</a>
+          </li>
+          </ul>
+              <h5>Project Documentation</h5>
+            <ul>
+              
+                
+                    
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+              
+        <li class="collapsed">
+                    <a href="project-info.html">Project Information</a>
+                </li>
+              
+                
+                    
+                  
+              
+        <li class="collapsed">
+                    <a href="project-reports.html">Project Reports</a>
+                </li>
+          </ul>
+              <h5>Modules</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="rocoto-core/index.html">Core</a>
+          </li>
+              
+    <li class="none">
+                    <a href="rocoto-simple-configuration/index.html">Simple Configuration Properties</a>
+          </li>
+              
+    <li class="none">
+                    <a href="rocoto-configuration/index.html">Apache commons-configuration</a>
+          </li>
+              
+    <li class="none">
+                    <a href="rocoto-converters/index.html">Google Guice Converter Utils</a>
+          </li>
+              
+    <li class="none">
+                    <a href="rocoto-system/index.html">System Properties</a>
+          </li>
+          </ul>
+              <h5>External Links</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../ibaguice/">Project Page</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../google-guice/">Google Guice</a>
+          </li>
+          </ul>
+                                               <a href="http://maven.apache.org/" title="Built by Maven" class="poweredBy">
+            <img class="poweredBy"
+                 alt="Built by Maven"
+                 src="./images/logos/maven-feather.png"
+                 width="90"
+                 height="30"
+                 border="1" />
+          </a>
+                           
+  
+
+  
+    
+            
+  
+    
+            </div>
+        </div>
+        <div id="bodyColumn">
+          <div id="contentBox">
+            <div class="section"><h2>The Converters module</h2>
+<p>The <i>Converters</i> module adds some string-to-type converters not already present in Google Guice, plus a simple to use module that makes easier the converters registration.</p>
+<p>Users that want ot use the <i>Converters</i> module in their projects, users have to add in their <tt>pom.xml</tt> the following <tt>dependency</tt>:</p>
+<div class="source"><pre>&lt;dependencies&gt;
+    ...
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.google.code.rocoto&lt;/groupId&gt;
+        &lt;artifactId&gt;rocoto-converters&lt;/artifactId&gt;
+        &lt;version&gt;XX.XX&lt;/version&gt;
+    &lt;/dependency&gt;
+    ...
+&lt;/dependencies&gt;</pre>
+</div>
+<div class="section"><h3>The ConvertersModule</h3>
+<p>Thecore class is the <tt>com.google.code.rocoto.converters.ConvertersModule</tt> that's a Guice Module that simplifyes the <tt>com.google.inject.spi.TypeConverter</tt> registration.</p>
+<p>Users can write their <tt>com.google.inject.spi.TypeConverter</tt> implementation:</p>
+<div class="source"><pre>import com.google.inject.TypeLiteral;
+import com.google.inject.spi.TypeConverter;
+
+public class MyConverter implements TypeConverter {
+
+    public Object convert(String value, TypeLiteral&lt;?&gt; toType) {
+       // perform here the conversion
+    }
+
+}</pre>
+</div>
+<p>and registry it into the module by specifying the binding type:</p>
+<div class="source"><pre>import com.google.code.rocoto.converters.ConvertersModule;
+...
+ConvertersModule convertersModule = new ConvertersModule();
+convertersModule.registerConverter(MyType.class, new MyConverter());</pre>
+</div>
+<p>or bind it to a <tt>com.google.inject.TypeLiteral</tt>:</p>
+<div class="source"><pre>convertersModule.registerConverter(new TypeLiteral&lt;List&lt;MyType&gt;&gt;(){}, new MyConverter());</pre>
+</div>
+<p>or bind it to a <tt>com.google.inject.matcher.Matcher</tt>:</p>
+<div class="source"><pre>import com.google.inject.TypeLiteral;
+import com.google.inject.matcher.Matcher;
+
+Matcher&lt;? super TypeLiteral&lt;?&gt; myMatcher = new MyMatcher();
+convertersModule.registerConverter(myMatcher, new MyConverter());</pre>
+</div>
+<p>finally, users have just to include the converters module when creating the <tt>com.google.inject.Injector</tt>:</p>
+<div class="source"><pre>import com.google.inject.AbstractModule;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
+...
+
+Injector injector = Guice.createInjector(new ConvertersModule(), new AbstractModule() {
+            @Override
+            protected void configure() {
+                this.bindConstant()
+                    .annotatedWith(Names.named(&quot;charset&quot;))
+                    .to(&quot;UTF-8&quot;);
+            }
+        });</pre>
+</div>
+</div>
+<div class="section"><h3>The Converters</h3>
+<p>The <tt>com.google.code.rocoto.converters</tt> package comes with default implementations of converers not already included in Google Guice, installed in the <tt>com.google.code.rocoto.converters.ConvertersModule</tt>.</p>
+<p>Every converter throws runtime exceptions if invalid input are submitted to the conversion process.</p>
+<p>Let's show and explain how they work:</p>
+<div class="section"><h4>BitSetConverter</h4>
+<p>Is the converter that converts a <tt>java.lang.String</tt> representation to a <tt>java.util.BitSet</tt>.</p>
+<p>String representation is typically a CSV String mixed o chars and numbers, i.e:</p>
+<div class="source"><pre>a, 123, ~</pre>
+</div>
+<p>in the example, <tt>a</tt> is taken in consideration as a <tt>char</tt>, <tt>123</tt> as an <tt>int</tt>, <tt>~</tt> as a <tt>char</tt>.</p>
+<p><b>Note</b> non numerical fragments with length great than 1 are not allowed!!!</p>
+</div>
+<div class="section"><h4>CharsetConverter</h4>
+<p>Is the converter that converts a <tt>java.lang.String</tt> representation to a <tt>java.nio.charset.Charset</tt>.</p>
+</div>
+<div class="section"><h4>CurrencyConverter</h4>
+<p>Is the converter that converts a <tt>java.lang.String</tt> representation to a <tt>java.util.Currency</tt>.</p>
+</div>
+<div class="section"><h4>DateConverter</h4>
+<p>Is the converter that converts a <tt>java.lang.String</tt> representation to a <tt>java.util.Calendar</tt> and to <tt>java.util.Date</tt>.</p>
+<p>By default, this converter manages the following ISO Date format representation:</p>
+<ul><li>yyyy;</li>
+<li>yyyy-MM;</li>
+<li>yyyy-MM-dd;</li>
+<li>yyyy-MM-dd'T'hh:mmZ;</li>
+<li>yyyy-MM-dd'T'hh:mm:ssZ;</li>
+<li>yyyy-MM-dd'T'hh:mm:ss.sZ<p>If users need to add new supported date formats, first they have to retrieve the <i>DateConverter</i>, then add a new pattern:</p>
+<div class="source"><pre>DateConverter dateConverter = module.lookup(Date.class, DateConverter.class);
+dateConverter.addPattern(&quot;EEE, MMM d, ''yy&quot;);</pre>
+</div>
+<p>If users need to set the <tt>java.util.Locale</tt> and/or the <tt>java.util.TimeZone</tt>, first they have to retrieve the <i>DateConverter</i>, then set their preferences:</p>
+<div class="source"><pre>import java.util.Locale;
+import java.util.TimeZone;
+...
+DateConverter dateConverter = module.lookup(Date.class, DateConverter.class);
+dateConverter.setLocale(Locale.getDefault());
+dateConverter.setTimeZone(TimeZone.getDefault());</pre>
+</div>
+</li>
+</ul>
+</div>
+<div class="section"><h4>FileConverter</h4>
+<p>Is the converter that converts a <tt>java.lang.String</tt> representation to a <tt>java.io.File</tt></p>
+</div>
+<div class="section"><h4>LocaleConverter</h4>
+<p>Is the converter that converts a <tt>java.lang.String</tt> representation to a <tt>java.util.Locale</tt></p>
+<p>The converter checks first if the input String matches with the pattern <i>languageCode_counrtyCode</i> to create the <tt>java.util.Locale</tt> otherwise will use the input value as locale language.</p>
+</div>
+<div class="section"><h4>NumberConverter</h4>
+<p>Is the converter that converts a <tt>java.lang.String</tt> representation to a math number representation, such <tt>java.math.BigDecimal</tt> and <tt>java.math.BigInteger</tt>.</p>
+</div>
+<div class="section"><h4>PatternConverter</h4>
+<p>Is the converter that converts a <tt>java.lang.String</tt> representation to a <tt>java.util.regex.Pattern</tt></p>
+</div>
+<div class="section"><h4>PropertiesConverter</h4>
+<p>Is the converter that converts a <tt>java.lang.String</tt> representation to a <tt>java.util.Properties</tt></p>
+<p><b>Note</b> Input string has to match with the pattern <i>key1=value1\nkey2=value2...</i>.</p>
+</div>
+<div class="section"><h4>SQLDateTimeConverter</h4>
+<p>Is the converter that converts a <tt>java.lang.String</tt> representation to:</p>
+<ul><li><tt>java.sql.Date</tt> (input has to match with <tt>yyyy-MM-dd</tt> pattern);</li>
+<li><tt>java.sql.Time</tt> (input has to match with <tt>HH:mm:ss</tt> pattern);</li>
+<li><tt>java.sql.Timestamp</tt> (input has to match with <tt>yyyy-MM-dd HH:mm:ss.fffffffff</tt> pattern).</li>
+</ul>
+</div>
+<div class="section"><h4>TimeZoneConverter</h4>
+<p>Is the converter that converts a <tt>java.lang.String</tt> representation to a <tt>java.util.TimeZone</tt>.</p>
+</div>
+<div class="section"><h4>URIConverter</h4>
+<p>Is the converter that converts a <tt>java.lang.String</tt> representation to a <tt>java.net.URI</tt>.</p>
+</div>
+<div class="section"><h4>URLConverter</h4>
+<p>Is the converter that converts a <tt>java.lang.String</tt> representation to a <tt>java.net.URL</tt>, supporting the <i>classpath://</i> pseudo protocol, to load resources from the the class path.</p>
+<p>Users that need to load classpath resources, have to specify the full qualified name of the resource. For example, given the class path resource:</p>
+<div class="source"><pre>com.acme.myapplication.JDBC.properties</pre>
+</div>
+<p>following URLs point to the same resource:</p>
+<div class="source"><pre>classpath://com/acme/myapplication/JDBC.properties
+classpath:///com/acme/myapplication/JDBC.properties</pre>
+</div>
+</div>
+<div class="section"><h4>UUIDConverter</h4>
+<p>Is the converter that converts a <tt>java.lang.String</tt> representation to a <tt>java.util.UUID</tt>.</p>
+</div>
+</div>
+</div>
+
+          </div>
+        </div>
+        <div class="clear">
+          <hr/>
+        </div>
+        <div id="footer">
+          <div class="xright">Copyright &#169;         
+   
+          2010.
+    
+      All Rights Reserved.    
+  
+
+  
+    
+            
+  
+    
+  </div>
+          <div class="clear">
+            <hr/>
+          </div>
+        </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+-classpath
+'/Users/simone/Documents/workspace-private/rocoto-parent/core/target/classes:/Users/simone/.m2/repository/org/projectlombok/lombok/0.9.1/lombok-0.9.1.jar'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'/Users/simone/Documents/workspace-private/rocoto-parent/core/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2010. All Rights Reserved.'
+-charset
+'UTF-8'
+-d
+'/Users/simone/Documents/workspace-private/rocoto-parent/core/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'Core 2.0 API'
+-use
+-version
+-windowtitle
+'Core 2.0 API'
