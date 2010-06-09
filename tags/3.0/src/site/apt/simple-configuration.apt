@@ -1,0 +1,266 @@
+                                    ------
+                                    Home
+                                    ------
+                                    Simple Configuration
+                                    ------
+                                     2010
+
+~~
+~~   Copyright 2009-2010 The Rocoto Team
+~~
+~~   Licensed under the Apache License, Version 2.0 (the "License");
+~~   you may not use this file except in compliance with the License.
+~~   You may obtain a copy of the License at
+~~
+~~       http://www.apache.org/licenses/LICENSE-2.0
+~~
+~~   Unless required by applicable law or agreed to in writing, software
+~~   distributed under the License is distributed on an "AS IS" BASIS,
+~~   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+~~   See the License for the specific language governing permissions and
+~~   limitations under the License.
+~~
+
+~~author: Simone Tripodi
+~~version: $Id$
+
+The Simple Configuration module
+
+  The <Simple Configuration> module is a dependencies-less, small (jar size is
+  less than ~20KB) light yet powerfull <Guice> module to easy load configuration
+  properties and bing them to the <Guice Binder>.
+
+  Users that want ot use the <Simple Configuration> module in their projects,
+  users have to add in their <<<pom.xml>>> the following <<<dependency>>>:
+
+----------------------------------------
+<dependencies>
+    ...
+    <dependency>
+        <groupId>com.googlecode.rocoto</groupId>
+        <artifactId>rocoto-simple-configuration</artifactId>
+        <version>XX.XX</version>
+    </dependency>
+    ...
+</dependencies>
+----------------------------------------
+
+  Then users are ready to load configuration files, but first create the module;
+  once configured, is it possible to create your injector:
+
+----------------------------------------
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
+import com.googlecode.rocoto.simpleconfig.SimpleConfigurationModule;
+
+...
+
+SimpleConfigurationModule configurationModule = new SimpleConfigurationModule();
+/*
+ * adds your configuration files
+ */
+Injector injector = Guice.createInjector(configurationModule,
+    ...
+);
+----------------------------------------
+
+  Finally, users can access to configuration parameters throug the
+  <<<@com.google.inject.name.Named>>> annotation.
+
+* Adding properties files from Classpath
+
+  In many cases developers are used to include their properties file into wars
+  or jars, then reloading them from the classpath.
+
+  The <<<com.googlecode.rocoto.simpleconfig.SimpleConfigurationModule>>> offers a set of
+  methods that simplifies that loading operation, by specifying the full
+  qualified classpath resource name:
+
+----------------------------------------
+module.addProperties("com/acme/jdbc.properties");
+module.addProperties("/com/acme/ldap.properties");
+----------------------------------------
+
+  If needed, users can also specify the <<<ClassLoader>>> needed to load the
+  pointed resource(s):
+
+----------------------------------------
+ClassLoader myClassLoader = [...];
+...
+module.addProperties("com/acme/jdbc.properties", myClassLoader);
+module.addProperties("/com/acme/ldap.properties", myClassLoader);
+----------------------------------------
+
+  The <<<com.googlecode.rocoto.simpleconfig.SimpleConfigurationModule>>> also supports the
+  <XML> definition of properties file:
+
+----------------------------------------
+module.addXMLProperties("com/acme/jdbc.xml");
+module.addXMLProperties("/com/acme/ldap.xml");
+----------------------------------------
+
+  and, of course, also for <XML> it is possible to specify the <<<ClassLoader>>>:
+
+----------------------------------------
+ClassLoader myClassLoader = [...];
+...
+module.addXMLProperties("com/acme/jdbc.xml", myClassLoader);
+module.addXMLProperties("/com/acme/ldap.xml", myClassLoader);
+----------------------------------------
+
+* Adding Properties files from the FileSystem
+
+  The <<<com.googlecode.rocoto.simpleconfig.SimpleConfigurationModule>>> is able to load
+  typical and <XML> properties files from the filesystem by specifying the
+  <<<java.io.File>>> location:
+
+----------------------------------------
+import java.io.File;
+...
+module.addProperties(new File("etc/com/acme/jdbc.properties"));
+module.addProperties(new File("etc/com/acme/ldap.xml"));
+----------------------------------------
+
+  By default, using this API, files wich name matches with <<<**/*.properties>>>
+  pattern will be threated as typical properties files, <<<**/*.xml>>> instead as
+  <XML> properties definition.
+
+  If the specified <<<java.io.File>>> is a directory, it will be traversed
+  looking for <<<**/*.properties>>> and <<<**/*.xml>>> properties files and will
+  be loaded in the configuration; given the following directory:
+
+----------------------------------------
+etc
+|-- com
+|   |-- jdbc.properties
+|   |-- rocoto
+|   |   |-- should-be-ignored.txt
+|   |   `-- simpleconfig
+|   |       |-- memcached.xml
+|   |       `-- should-be-ignored.txt
+|   `-- should-be-ignored.txt
+|-- ibatis.properties
+`-- should-be-ignored.txt
+----------------------------------------
+
+  all txt files will be ignored, all others will be load as properties files.
+
+  Users can customize the default behavior of properties files pattern matching,
+  by specifying their <<<com.googlecode.rocoto.simpleconfig.AbstractPropertiesFileFilter>>>
+  implementation, where it is possible specifying the files patterns:
+
+----------------------------------------
+import com.googlecode.rocoto.simpleconfig.AbstractPropertiesFileFilter;
+
+...
+module.addProperties(new File("etc"), new AbstractPropertiesFileFilter(
+    "**/*.config", // specify here the 'old-style' properties file pattern
+    "**/*.p?ml" // specify here the XML properties file pattern
+) {});
+----------------------------------------
+
+  As described earlier, patterns are used for the inclusion and exclusion of
+  files. These patterns look very much like the patterns used in
+  {{{http://ant.apache.org/manual/dirtasks.html#patterns}Apache Ant}} (from
+  wich the code has been kindly borrowed :P):
+
+  * <<<**>>> matches zero or more 'directories' in a path;
+  * <<<*>>> matches zero or more characters;
+  * <<<?>>> matches one character.
+
+* Adding Properties files from URLs
+
+  The <<<com.googlecode.rocoto.simpleconfig.SimpleConfigurationModule>>> also supports the
+  properties loading from URLs, by specifying the <<<java.net.URL>>>:
+
+----------------------------------------
+import java.net.URL;
+...
+module.addProperties(new URL("http://acme.com/config/jdbc.properties"));
+module.addXMLProperties(new URL("http://acme.com/config/ldap.xml"));
+----------------------------------------
+
+* Adding Java System Properties
+
+  In many cases users need to acces to Java System Properties by invoking
+  <<<System.getProperty("java.version")>>> or <<<System.getProperties()>>>.
+
+  By enabling them to the configuration module, users can replace the Java System
+  Properties retrieving operation with the Dependency Injection:
+
+----------------------------------------
+...
+module.addSystemProperties();
+----------------------------------------
+
+* Adding Environment Variables
+
+  In Java5 the Environment Variables are accessible through <<<System.getenv()>>>
+  and <<<System.getenv("JAVA_HOME")>>>; like for Java System Properties, users
+  can adding Environment Variables simply by invoking:
+
+----------------------------------------
+...
+module.addEnvironmentVariables();
+----------------------------------------
+
+  By default Environment Variables will be referenced into the configuration
+  with the <<<env.>>> prefix, but users are free to specify their preferred one:
+
+----------------------------------------
+...
+module.addEnvironmentVariables("environment");
+----------------------------------------
+
+* Adding existing configurations
+
+  The <<<com.googlecode.rocoto.simpleconfig.SimpleConfigurationModule>>> allows users to
+  plug already existing properties configuration:
+
+----------------------------------------
+Properties p = [...]
+...
+module.addProperties(p);
+----------------------------------------
+
+  or
+
+----------------------------------------
+Map<String, String> m = [...]
+...
+module.addProperties(m);
+----------------------------------------
+
+* $\{\}, the <Apache Ant> variables style
+
+  The <<<com.googlecode.rocoto.simpleconfig.SimpleConfigurationModule>>> supports the well
+  known <$\{\}> expression to define placeholders, which scope is the whole
+  configuration, that means that users can define some commons properties in one
+  properties file:
+
+----------------------------------------
+commons.host=localhost
+commons.port=8080
+...
+----------------------------------------
+
+  then referencing them in different files, loaded in the same configuration:
+
+----------------------------------------
+ldap.host=${commons.host}
+ldap.port=${commons.port}
+...
+----------------------------------------
+
+  and
+
+----------------------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties version="1.0">
+    <entry key="proxy.host">${commons.host}</entry>
+    <entry key="proxy.port">${commons.port}</entry>
+    ...
+</properties>
+----------------------------------------
