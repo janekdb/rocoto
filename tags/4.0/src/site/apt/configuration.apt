@@ -1,0 +1,309 @@
+                                    ------
+                                    Home
+                                    ------
+                                    Simple Configuration
+                                    ------
+                                     2010
+
+~~
+~~   Copyright 2009-2010 The Rocoto Team
+~~
+~~   Licensed under the Apache License, Version 2.0 (the "License");
+~~   you may not use this file except in compliance with the License.
+~~   You may obtain a copy of the License at
+~~
+~~       http://www.apache.org/licenses/LICENSE-2.0
+~~
+~~   Unless required by applicable law or agreed to in writing, software
+~~   distributed under the License is distributed on an "AS IS" BASIS,
+~~   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+~~   See the License for the specific language governing permissions and
+~~   limitations under the License.
+~~
+
+~~author: Simone Tripodi
+~~version: $Id$
+
+The Configuration module
+
+  The <ConfigurationModule> is a dependencies-less but open to support 3rd party libraries,
+  light yet powerful <Guice> module to easy load configurations and bind them to the <Guice Binder>.
+
+  The first concept users have to get familiar is the <ConfigurationReader>, an object able to
+  read a generic configuration file in any format, that iterates over the key/value
+  configuration entries; by default, Rocoto comes with following <ConfigurationReader>s:
+
+  * <<<com.googlecode.rocoto.configuration.readers.PropertiesReader>>> that simply iterates over
+    <<<java.util.Properties>>> properties;
+
+  * <<<com.googlecode.rocoto.configuration.readers.PropertiesURLReader>>> loads <<<java.util.Properties>>>
+  in both <<<.properties>>> and <<<.xml>>> formats from Class Path, File System and URL;
+
+  * <<<com.googlecode.rocoto.configuration.readers.SystemPropertiesReader>>> iterates over
+    <<<System.getProperties()>>> entries;
+
+  * <<<com.googlecode.rocoto.configuration.readers.EnvironmentVariablesReader>>> iterates over
+    <<<System.getenv()>>> entries;
+
+  With these tools users are now ready to load configuration files, but first have to create the module;
+  once plugged the <ConfigurationReader>s, is it possible to create the Guice Injector:
+
++--------------------------------------+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
+import com.googlecode.rocoto.configuration.ConfigurationModule;
+
+...
+
+ConfigurationModule configurationModule = new ConfigurationModule();
+// load environments variables
+configurationModule.addConfigurationReader(new EnvironmentVariablesReader())
+// load system properties
+configurationModule.addConfigurationReader(new SystemPropertiesReader());
+// load a class path properties resource
+configurationModule.addConfigurationReader(
+    new PropertiesURLReader("/com/googlecode/rocoto/simpleconfig/ldap.properties"));
+// now create the Injector
+Injector injector = Guice.createInjector(configurationModule,
+    ...
+);
++--------------------------------------+
+
+  Now users can access to configuration parameters through the <<<@com.google.inject.name.Named>>> annotation.
+
+  <<NOTE>> properties load via <<<EnvironmentVariablesReader>>> will be referred with the <<<env.>>> prefix.
+
+* Implementing your own configuration loader
+
+  If users want to load configuration files in different format, all they have to do is implementing
+  the <<<com.googlecode.rocoto.configuration.ConfigurationReader>>> interface:
+
++--------------------------------------+
+class INIReader implements ConfigurationReader {
+
+    /**
+     * {@inheritDoc}
+     */
+    public Iterator<Entry<String, String>> readConfiguration() throws Exception {
+        return // next INI configuration entry
+    }
+
+}
++--------------------------------------+
+
+  If users want to read their configuration files from Class Path, File System or URL, to help respecting the DRY
+  principle, Rocoto provides the <<<com.googlecode.rocoto.configuration.internal.AbstractConfigurationURLReader>>>:
+
++--------------------------------------+
+class INIReader extends AbstractConfigurationURLReader {
+
+    public INIReader(String classpathResource) {
+        super(classpathResource);
+    }
+
+    public INIReader(String classpathResource, ClassLoader classLoader) {
+        super(classpathResource, classLoader);
+    }
+
+    public INIReader(File file) {
+        super(file);
+    }
+
+    public INIReader(URL url) {
+        super(url);
+    }
+
+    @Override
+    protected Iterator<Entry<String, String>> process(InputStream input) throws Exception {
+        // implement your logic here!!!
+    }
+
+}
++--------------------------------------+
+
+* Adding configuration files by traversing the File System
+
+  The <<<com.googlecode.rocoto.configuration.ConfigurationModule>>> is able to load automatically
+  configuration files from the file system by specifying the <<<java.io.File>>> root location; since
+  configuration files can be represented in different formats, Rocoto let users handle files via one or more
+  <<<com.googlecode.rocoto.configuration.traversal.ConfigurationReaderBuilder>>>s, an element that
+  recognizes the traversed file from the path name pattern and creates the relative <<<ConfigurationReader>>>
+
+  By default, Rocoto comes with following <<<ConfigurationReaderBuilder>>> implementations:
+
+  * <<<com.googlecode.rocoto.configuration.traversal.PropertiesReaderBuilder>>> that handles <<<**/*.properties>>> files
+    during the directory traversal;
+  * <<<com.googlecode.rocoto.configuration.traversal.XMLPropertiesReaderBuilder>>> that handles <<<**/*.xml>>> files
+    during the directory traversal and threat them as <<<java.util.Properties>>> in the XML format.
+
+  Please note that the previous builders are NOT activated automatically in the module.
+
+  Let's have a look how it works; given the following directory:
+
++--------------------------------------+
+etc
+|-- com
+|   |-- jdbc.properties
+|   |-- rocoto
+|   |   |-- should-be-ignored.txt
+|   |   `-- simpleconfig
+|   |       |-- memcached.xml
+|   |       `-- should-be-ignored.txt
+|   `-- should-be-ignored.txt
+|-- mybatis.properties
+`-- should-be-ignored.txt
++--------------------------------------+
+
+  users can traverse the <<<etc>>> directory in that way:
+
++--------------------------------------+
+import com.googlecode.rocoto.configuration.ConfigurationModule;
+
+...
+
+ConfigurationModule configurationModule = new ConfigurationModule();
+configurationModule.addConfigurationReader(new File("etc"),
+    new PropertiesReaderBuilder(),
+    new XMLPropertiesReaderBuilder());
++--------------------------------------+
+
+  to speed up operations, users are encouraged to define all the builders for the same directory traversal.
+
+  Of course, users will have the need to handle configuration files also in different format to <<<.properties> or
+  <<<.xml>>> version of <<<java.util.Properties>>>, so to handle that their own type they have to define a new
+  <<<ConfigurationReaderBuilder>>>:
+
++--------------------------------------+
+class INIReaderBuilder extends ConfigurationReaderBuilder {
+
+    private static final String INI_PATTERN = "**/*.ini";
+
+    public INIReaderBuilder() {
+        super(INI_PATTERN);
+    }
+
+    @Override
+    public ConfigurationReader create(File configurationFile) {
+        return new INIReader(configurationFile);
+    }
+
+}
++--------------------------------------+
+
+  and now they can add the builder in the directory traversal operation:
+
++--------------------------------------+
+import com.googlecode.rocoto.configuration.ConfigurationModule;
+
+...
+
+ConfigurationModule configurationModule = new ConfigurationModule();
+configurationModule.addConfigurationReader(new File("etc"),
+    new PropertiesReaderBuilder(),
+    new XMLPropertiesReaderBuilder(),
+    new INIReaderBuilder());
++--------------------------------------+
+
+  As described earlier, patterns are used for the inclusion and exclusion of
+  files. These patterns look very much like the patterns used in
+  {{{http://ant.apache.org/manual/dirtasks.html#patterns}Apache Ant}} (from
+  wich the code has been kindly borrowed :P):
+
+  * <<<**>>> matches zero or more 'directories' in a path;
+  * <<<*>>> matches zero or more characters;
+  * <<<?>>> matches one character.
+
+* $\{\}, the <Apache Ant> variables style
+
+  The <<<com.googlecode.rocoto.configuration.ConfigurationModule>>> supports the well
+  known <$\{\}> expression to define placeholders, which scope is the whole
+  configuration, that means that users can define some commons properties in one
+  properties file:
+
++--------------------------------------+
+commons.host=localhost
+commons.port=8080
+...
++--------------------------------------+
+
+  then referencing them in different files:
+
++--------------------------------------+
+ldap.host=${commons.host}
+ldap.port=${commons.port}
+...
++--------------------------------------+
+
+  it works also in the XML format:
+
++--------------------------------------+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties version="1.0">
+    <entry key="proxy.host">${commons.host}</entry>
+    <entry key="proxy.port">${commons.port}</entry>
+    ...
+</properties>
++--------------------------------------+
+
+** Default Values
+
+  In Java code users can retrieve a property from <<<java.util.Properties>>> specifying the <<default>> value if the
+  input key is not present, using the
+  {{{http://download.oracle.com/javase/6/docs/api/java/util/Properties.html#getProperty(java.lang.String, java.lang.String)}Properties#getProperty(java.lang.String, java.lang.String)}}
+  method.
+
+  Rocoto allows doing the same, users can specify a key using the pipe character <<<|>>> to separate the key name from
+  the default value:
+
++--------------------------------------+
+JDBC.url=jdbc:derby://${JDBC.host|localhost}:${JDBC.port|1527}/${JDBC.schema}
++--------------------------------------+
+
+  that means if <<<JDBC.host>>> and <<<JDBC.port>>> won't be specified, they will be replaced by the default values;
+  given the following properties:
+
++--------------------------------------+
+JDBC.url=jdbc:derby://${JDBC.host|localhost}:${JDBC.port|1527}/${JDBC.schema}
+JDBC.schema=rocoto
++--------------------------------------+
+
+  the <<<JDBC.url>>> property value will be <<<jdbc:derby://localhost:1527/rocoto>>>.
+
+** com.google.inject.name.Names compatibility
+
+  Users can still load properties using the Google Guice {{{http://google-guice.googlecode.com/svn/trunk/javadoc/com/google/inject/name/Names.html}Names}}
+  but take care that loading properties using this method <$\{\}> expressions won't be resolved at all.
+  On the other side, specified properties in that way will be used to resolve
+  <$\{\}> expressions in properties using the <<<ConfigurationModule>>>.
+
+* Chaining methods
+
+  In order to make simpler the <<<ConfigurationModule>>> creation, users can chain <<<ConfigurationModule>>> methods:
+
++--------------------------------------+
+Injector injector = Guice.createInjector(new ConfigurationModule()
+    .addConfigurationReader(new File("etc"),
+        new PropertiesReaderBuilder(),
+        new XMLPropertiesReaderBuilder(),
+        new INIReaderBuilder())
+    .addConfigurationReader(new EnvironmentVariablesReader())
+    .addConfigurationReader(new SystemPropertiesReader())
+    .addConfigurationReader(
+        new PropertiesURLReader("/com/googlecode/rocoto/simpleconfig/ldap.properties"));;
+);
++--------------------------------------+
+
+* More flexible than the Spring Framework!
+
+  I had a not so good experience with the Spring's {{{http://static.springsource.org/spring/docs/2.0.2/api/org/springframework/beans/factory/config/PropertyPlaceholderConfigurer.html}PropertyPlaceholderConfigurer}}
+  because it forces users to centralize the properties files loading; I mean,
+  to make things working, in the way that <$\{\}> expressions were correctly
+  resolved, I had to declare just one <<<PropertyPlaceholderConfigurer>>> for the whole
+  context, list all the <<<*.properties>>> files for the all modules.
+
+  I didn't like that approach at all, it doesn't allow users to split configurations
+  in different modules even if some keys are shared by two or more modules.
+  Rocoto users won't have these problems at all,
+  they can load <<<*.properties>>> files from different locations and obtain the same result.
